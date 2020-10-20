@@ -2,9 +2,66 @@ body {
   margin: 50px;
 }
 
+.tableWrapper {
+  width: 100%;
+}
+
 .tableWrapper,
 .tableWrapper td {
   border: 1px solid black;
   border-collapse: collapse;
   padding: 10px;
+}
+
+.field {
+  display: block;
+  margin: 0 0 10px;
+}
+
+.field-label {
+  display: block;
+  margin: 0 0 5px;
+  font-size: 1rem;
+}
+
+.field-input {
+  box-sizing: border-box;
+  max-width: 100%;
+  border: 1px solid #444444;
+  border-radius: 3px;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: 1px solid rgb(14, 38, 99);
+  border-radius: 3px;
+  background-color: rgb(24, 67, 177);
+  color: #efefef;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border: 1px solid rgb(4, 14, 39);
+  background-color: rgb(14, 38, 99);
+}
+
+.blocks {
+  margin-left: -10px;
+  font-size: 0;
+}
+
+.blocks > * {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 40%;
+  padding-left: 10px;
+  font-size: 1rem;
+  vertical-align: top;
+}
+
+.blocks > *:nth-child(2n) {
+  width: 60%;
 }

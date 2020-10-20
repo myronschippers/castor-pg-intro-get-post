@@ -12,10 +12,10 @@ function onReady() {
 
 function handleClickSave() {
   let payloadObject = {
-    artist: $('#js-input-artist').val(),
-    track: $('#js-input-track').val(),
-    rank: $('#js-input-rank').val(),
-    published: $('#js-input-published').val(),
+    artist: $('.js-input-artist').val(),
+    track: $('.js-input-track').val(),
+    rank: $('.js-input-rank').val(),
+    published: $('.js-input-published').val(),
   };
 
   postMusicData(payloadObject);
@@ -61,10 +61,10 @@ function postMusicData(payloadObject) {
 
 function clearForm() {
   // clear fields
-  $('#js-input-artist').val('');
-  $('#js-input-track').val('');
-  $('#js-input-rank').val('');
-  $('#js-input-published').val('');
+  $('.js-input-artist').val('');
+  $('.js-input-track').val('');
+  $('.js-input-rank').val('');
+  $('.js-input-published').val('');
 }
 
 function render(musicLibrary) {
