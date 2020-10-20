@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // Setup body parser - to translating request body into JSON
-app.use( bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 // app.use( bodyParser.json() );
 app.use(express.static('server/public'));
 
@@ -12,10 +12,8 @@ app.use(express.static('server/public'));
 let musicRouter = require('./routes/music_router');
 app.use('/musicLibrary', musicRouter);
 
-
 // Start express
 const PORT = 5000;
 app.listen(PORT, () => {
-    console.log('up and running on port', PORT);
+  console.log('up and running on port', PORT);
 });
-
