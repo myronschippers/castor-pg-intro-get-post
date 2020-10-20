@@ -69,10 +69,17 @@ app.post('/musicLibrary', (req, res) => {
   // musicLibrary.push(req.body);
   const musicData = req.body;
   const queryText = `INSERT INTO "music_library" ("rank", "artist", "track", "published")
-    VALUES (${musicData.rank}, '${musicData.artist}', '${musicData.track}', '${musicData.published}');`;
+    VALUES ($2, $1, $3, $4);`;
+
+  const queryArray = [
+    musicData.rank,
+    musicData.artist,
+    musicData.track,
+    musicData.published,
+  ];
 
   pool
-    .query(queryText)
+    .query(queryText, queryArray)
     .then((dbResponse) => {
       res.sendStatus(201);
     })
