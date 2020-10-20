@@ -29,34 +29,57 @@ app.use(bodyParser.json());
 app.use(express.static('server/public'));
 
 // Routes would go here
-let musicLibrary = [
-  {
-    rank: 355,
-    artist: 'Ke$ha',
-    track: 'Tik-Toc',
-    published: '1/1/2009',
-  },
-  {
-    rank: 356,
-    artist: 'Gene Autry',
-    track: 'Rudolph, the Red-Nosed Reindeer',
-    published: '1/1/1949',
-  },
-  {
-    rank: 357,
-    artist: 'Oasis',
-    track: 'Wonderwall',
-    published: '1/1/1996',
-  },
-];
+// let musicLibrary = [
+//   {
+//     rank: 355,
+//     artist: 'Ke$ha',
+//     track: 'Tik-Toc',
+//     published: '1/1/2009',
+//   },
+//   {
+//     rank: 356,
+//     artist: 'Gene Autry',
+//     track: 'Rudolph, the Red-Nosed Reindeer',
+//     published: '1/1/1949',
+//   },
+//   {
+//     rank: 357,
+//     artist: 'Oasis',
+//     track: 'Wonderwall',
+//     published: '1/1/1996',
+//   },
+// ];
 
 app.get('/musicLibrary', (req, res) => {
-  res.send(musicLibrary);
+  const queryText = 'SELECT * FROM "music_library";';
+
+  pool
+    .query(queryText)
+    .then((dbResponse) => {
+      console.log(dbResponse);
+      res.send(dbResponse.rows);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
 });
 
 app.post('/musicLibrary', (req, res) => {
-  musicLibrary.push(req.body);
-  res.sendStatus(201);
+  // musicLibrary.push(req.body);
+  const musicData = req.body;
+  const queryText = `INSERT INTO "music_library" ("rank", "artist", "track", "published")
+    VALUES (${musicData.rank}, '${musicData.artist}', '${musicData.track}', '${musicData.published}');`;
+
+  pool
+    .query(queryText)
+    .then((dbResponse) => {
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
 });
 
 // MODULARIZING ROUTES
