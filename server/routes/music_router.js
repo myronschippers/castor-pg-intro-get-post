@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   musicLibrary.push(req.body);
-  res.sendStatus(200);
+  res.sendStatus(201);
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 $(document).ready(onReady);
 
 function onReady() {
-  $('#js-add').on('click', postMusicData);
+  $('#js-add').on('click', handleClickSave);
 
   getMusicData();
 }
@@ -11,14 +11,14 @@ function onReady() {
 // ------------------------------
 
 function handleClickSave() {
-  let payloadObject = {
+  let musicObject = {
     artist: $('.js-input-artist').val(),
     track: $('.js-input-track').val(),
     rank: $('.js-input-rank').val(),
     published: $('.js-input-published').val(),
   };
 
-  postMusicData(payloadObject);
+  postMusicData(musicObject);
 }
 
 //
@@ -27,7 +27,6 @@ function handleClickSave() {
 
 // get artist data from the server
 function getMusicData() {
-  $('#js-musicTableBody').empty();
   $.ajax({
     type: 'GET',
     url: '/musicLibrary',
