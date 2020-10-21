@@ -26,6 +26,7 @@ function handleDelete() {
   // retrieve id
   const musicId = $(this).data('id');
   console.log('DELETE:', musicId);
+  deleteMusic(musicId);
 }
 
 //
@@ -58,6 +59,20 @@ function postMusicData(payloadObject) {
     })
     .catch(function (err) {
       console.log(err);
+    });
+}
+
+function deleteMusic(itemId) {
+  $.ajax({
+    method: 'DELETE',
+    url: `/musicLibrary/${itemId}`, // /musicLibrary/5
+  })
+    .then((deleteMessage) => {
+      getMusicData();
+    })
+    .catch((err) => {
+      console.log(err);
+      alert('Oh SHOOT!!!');
     });
 }
 
