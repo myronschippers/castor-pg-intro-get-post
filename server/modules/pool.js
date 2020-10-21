@@ -12,7 +12,7 @@ let dbConfig = {
 // is heroku config available
 if (process.env.DATABASE_URL) {
   const params = url.parse(process.env.DATABASE_URL);
-  const auth = params.split(':');
+  const auth = params.auth.split(':');
 
   dbConfig = {
     user: auth[0],
