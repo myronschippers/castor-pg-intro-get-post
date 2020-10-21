@@ -56,4 +56,10 @@ router.post('/', (req, res) => {
 // client >>> server PUT
 // server >>> database UPDATE
 
+// CRUD
+// Create >>> POST
+// Read >>> GET
+// Update >>> PUT
+// Delete >>> DELETE
+
 module.exports = router;
