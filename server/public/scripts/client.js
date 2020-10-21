@@ -2,6 +2,7 @@ $(document).ready(onReady);
 
 function onReady() {
   $('#js-add').on('click', handleClickSave);
+  $('#js-musicTableBody').on('click', '.js-btn-delete', handleDelete);
 
   getMusicData();
 }
@@ -19,6 +20,12 @@ function handleClickSave() {
   };
 
   postMusicData(musicObject);
+}
+
+function handleDelete() {
+  // retrieve id
+  const musicId = $(this).data('id');
+  console.log('DELETE:', musicId);
 }
 
 //
@@ -79,6 +86,7 @@ function render(musicLibrary) {
         <td>${musicData.track}</td>
         <td>${musicData.rank}</td>
         <td>${musicData.published}</td>
+        <td><button class="js-btn-delete" data-id="${musicData.id}">Delete</button></td>
       </tr>
     `);
   }
