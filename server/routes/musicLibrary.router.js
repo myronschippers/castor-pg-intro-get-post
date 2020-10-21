@@ -51,6 +51,22 @@ router.post('/', (req, res) => {
 // DELETE
 // client >>> server DELETE
 // server >>> database DELETE
+router.delete('/:id', (req, res) => {
+  // req.params is {} { id: '' }
+  const musicId = req.params.id;
+  const queryText = `DELETE FROM "music_library" WHERE id=$1;`;
+  const queryArrayData = [musicId];
+
+  pool
+    .query(queryText, queryArrayData)
+    .then((dbResponse) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
 
 // UPDATE
 // client >>> server PUT
