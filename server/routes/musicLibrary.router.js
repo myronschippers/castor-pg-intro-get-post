@@ -3,6 +3,9 @@ const router = express.Router();
 
 const pool = require('../modules/pool');
 
+// GETTING
+// client >>> server GET
+// server >>> database SELECT
 router.get('/', (req, res) => {
   const queryText = 'SELECT * FROM "music_library";';
 
@@ -18,6 +21,9 @@ router.get('/', (req, res) => {
     });
 });
 
+// CREATE
+// client >>> server POST
+// server >>> database INSERT
 router.post('/', (req, res) => {
   // musicLibrary.push(req.body);
   const musicData = req.body;
@@ -41,5 +47,13 @@ router.post('/', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// DELETE
+// client >>> server DELETE
+// server >>> database DELETE
+
+// UPDATE
+// client >>> server PUT
+// server >>> database UPDATE
 
 module.exports = router;
