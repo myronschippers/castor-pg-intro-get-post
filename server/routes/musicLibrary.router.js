@@ -71,6 +71,21 @@ router.delete('/:id', (req, res) => {
 // UPDATE
 // client >>> server PUT
 // server >>> database UPDATE
+router.put('/rank/:kittykat', (req, res) => {
+  const newMusicInfo = req.body;
+  const queryText = `UPDATE "music_library" SET rank=$1 WHERE id=$2;`;
+  const queryArray = [newMusicInfo.rank, req.params.kittykat];
+
+  pool
+    .query(queryText, queryArray)
+    .then((dbResponse) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.warning(err);
+      res.sendStatus(500);
+    });
+});
 
 // CRUD
 // Create >>> POST
