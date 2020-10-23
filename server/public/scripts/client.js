@@ -3,6 +3,7 @@ $(document).ready(onReady);
 function onReady() {
   $('#js-add').on('click', handleClickSave);
   $('#js-musicTableBody').on('click', '.js-btn-delete', handleDelete);
+  $('#js-musicTableBody').on('click', '.js-btn-update', handleUpdate);
 
   getMusicData();
 }
@@ -10,6 +11,32 @@ function onReady() {
 //
 // EVENT HANDLERS
 // ------------------------------
+
+function handleUpdate() {
+  console.log('UPDATE');
+  // $('.js-rank').html('<input type="number" placeholder="rank" />');
+  const $btn = $(this);
+  const currentRank = $btn.data('rank');
+  const btnText = $btn.text();
+  const $tdRank = $btn
+    .parent() // td
+    .parent() // tr
+    // .closest('tr')
+    // .children('.js-rank') // td class="js-rank"
+    .children('.js-rank'); // td class="js-rank"
+
+  if (btnText === 'Update') {
+    $tdRank.html(
+      `<input type="number" placeholder="rank" value="${currentRank}" />`
+    );
+    $btn.text('Save');
+  } else {
+    // get value from field
+    const rankUpdate = $tdRank.children('input').val();
+    const id = $btn.data('id');
+    updateRank(rankUpdate, id);
+  }
+}
 
 function handleClickSave() {
   let musicObject = {
@@ -76,6 +103,21 @@ function deleteMusic(itemId) {
     });
 }
 
+function updateRank(newRank, id) {
+  $.ajax({
+    method: 'PUT',
+    url: `/musicLibrary/rank/${id}`,
+    data: { rank: newRank },
+  })
+    .then((putMessage) => {
+      getMusicData();
+    })
+    .catch((err) => {
+      console.log(err);
+      alert('Oh SHOOT Did Not UPDATE!!!');
+    });
+}
+
 //
 // DOM INTERACTION / MANIPULATION
 // ------------------------------
@@ -99,9 +141,12 @@ function render(musicLibrary) {
       <tr>
         <td>${musicData.artist}</td>
         <td>${musicData.track}</td>
-        <td>${musicData.rank}</td>
+        <td class="js-rank">${musicData.rank}</td>
         <td>${musicData.published}</td>
-        <td><button class="js-btn-delete" data-id="${musicData.id}">Delete</button></td>
+        <td>
+          <button class="js-btn-delete" data-id="${musicData.id}">Delete</button>
+          <button class="js-btn-update" data-rank="${musicData.rank}" data-id="${musicData.id}">Update</button>
+        </td>
       </tr>
     `);
   }
